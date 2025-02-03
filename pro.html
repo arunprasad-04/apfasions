@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Men's Fashion Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navigation (Same as before) */
+        nav {
+            background: #333;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            margin-top: 70px;
+            background: #f5f5f5;
+            padding: 1rem;
+            position: sticky;
+            top: 60px;
+            z-index: 900;
+        }
+
+        .category-list {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 0.5rem;
+            scrollbar-width: none;
+        }
+
+        .category-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-link {
+            text-decoration: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .category-link:hover,
+        .category-link.active {
+            background: #333;
+            color: white;
+        }
+
+        /* Product Categories */
+        .product-category {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            margin: 2rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #333;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: #e44d26;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-colors {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .color-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #ccc;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+
+        .add-to-cart {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: #555;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .category-list {
+                padding: 0.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">MEN'S FASHION</a>
+            <div class="nav-links">
+                <a href="/index.html">Home</a>
+                <a href="#products">Products</a>
+                <a href="#cart">Cart (0)</a>
+                <a href="#orders">Orders</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Category Navigation -->
+    <div class="category-nav">
+        <div class="category-list">
+            <a href="#denim" class="category-link active">Denim</a>
+            <a href="#shirts" class="category-link">Shirts</a>
+            <a href="#pants" class="category-link">Pants</a>
+            <a href="#suits" class="category-link">Suits</a>
+            <a href="#jackets" class="category-link">Jackets</a>
+            <a href="#accessories" class="category-link">Accessories</a>
+            <a href="#shoes" class="category-link">Shoes</a>
+            <a href="#sportswear" class="category-link">Sportswear</a>
+        </div>
+    </div>
+
+    <!-- Denim Section -->
+    <section class="product-category" id="denim">
+        <h2 class="category-title">Denim Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/images (2).jpg" alt="Slim Fit Jeans" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Slim Fit Jeans</h3>
+                    <p class="product-price">$79.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #1a237e;"></div>
+                        <div class="color-option" style="background-color: #212121;"></div>
+                        <div class="color-option" style="background-color: #3e2723;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="/denim jack.jpg" alt="Denim Jacket" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Denim Jacket</h3>
+                    <p class="product-price">$89.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #0d47a1;"></div>
+                        <div class="color-option" style="background-color: #000000;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shirts Section -->
+    <section class="product-category" id="shirts">
+        <h2 class="category-title">Shirts Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/ox.jpg" alt="Oxford Shirt" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Oxford Button-Down</h3>
+                    <p class="product-price">$49.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #ffffff;"></div>
+                        <div class="color-option" style="background-color: #90caf9;"></div>
+                        <div class="color-option" style="background-color: #pink;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="/linim shrt.jpg" alt="Casual Shirt" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Casual Linen Shirt</h3>
+                    <p class="product-price">$45.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #f5f5f5;"></div>
+                        <div class="color-option" style="background-color: #a5d6a7;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pants Section -->
+    <section class="product-category" id="pants">
+        <h2 class="category-title">Pants Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="/chinos.jpg" alt="Chinos" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Chinos</h3>
+                    <p class="product-price">$59.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #8d6e63;"></div>
+                        <div class="color-option" style="background-color: #546e7a;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="/formal.jpg" alt="Dress Pants" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Formal Dress Pants</h3>
+                    <p class="product-price">$69.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #212121;"></div>
+                        <div class="color-option" style="background-color: #37474f;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        [Previous code remains the same until the Pants section, then adds:]
+
+    <!-- Suits Section -->
+    <section class="product-category" id="suits">
+        <h2 class="category-title">Suits Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6e_9YZ_qtoQhcVE9DxZld64Lh0rE_QIjGJw&s" alt="Classic Suit" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Three-Piece Suit</h3>
+                    <p class="product-price">$299.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #263238;"></div>
+                        <div class="color-option" style="background-color: #1a237e;"></div>
+                        <div class="color-option" style="background-color: #212121;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://vardo.co.in/cdn/shop/files/naveenganwani_DARK_GREEN_2_PIECE_SLIM_FIT_SUIT_Asos_c02edbcb-90f6-4221-a866-048fd00063f9_1800x1800.png?v=1693740183" alt="Modern Suit" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Modern Slim Fit Suit</h3>
+                    <p class="product-price">$249.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #455a64;"></div>
+                        <div class="color-option" style="background-color: #37474f;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jackets Section -->
+    <section class="product-category" id="jackets">
+        <h2 class="category-title">Jackets Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtxfbuWQP4ugsC6aMIZ3QDnQMkp2YQh3V0iA&s" alt="Leather Jacket" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Leather Jacket</h3>
+                    <p class="product-price">$199.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #3e2723;"></div>
+                        <div class="color-option" style="background-color: #212121;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgD3bkK8Uzljenc8GCGPupwOIPa5S8VGk4Uw&s" alt="Bomber Jacket" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Modern Bomber Jacket</h3>
+                    <p class="product-price">$149.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #1b5e20;"></div>
+                        <div class="color-option" style="background-color: #263238;"></div>
+                        <div class="color-option" style="background-color: #b71c1c;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section class="product-category" id="accessories">
+        <h2 class="category-title">Accessories Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://www.thewalletstore.in/cdn/shop/files/1._2.jpg?v=1698918186&width=2048" alt="Leather Belt" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Premium Leather Belt</h3>
+                    <p class="product-price">$39.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #3e2723;"></div>
+                        <div class="color-option" style="background-color: #212121;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtA24nFEYZf-BCpZYuztqSEif17YOMPJk57Q&s" alt="Watch" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Chronograph Watch</h3>
+                    <p class="product-price">$159.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #c0c0c0;"></div>
+                        <div class="color-option" style="background-color: #ffd700;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sportswear Section -->
+    <section class="product-category" id="sportswear">
+        <h2 class="category-title">Sportswear Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKj1yYNa7PUTJg7Yftp4NkQ6Pk-voGY2fj3g&s" alt="Track Suit" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Performance Track Suit</h3>
+                    <p class="product-price">$89.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #1a237e;"></div>
+                        <div class="color-option" style="background-color: #212121;"></div>
+                        <div class="color-option" style="background-color: #b71c1c;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://pyxis.nymag.com/v1/imgs/2b1/480/647dcd3ba379f7900cfc3c240525af1e9f-Interval7-Black-Front-700x.rsquare.w600.jpg" alt="Gym Shorts" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Athletic Gym Shorts</h3>
+                    <p class="product-price">$34.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #212121;"></div>
+                        <div class="color-option" style="background-color: #1976d2;"></div>
+                        <div class="color-option" style="background-color: #616161;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shoes Section -->
+    <section class="product-category" id="shoes">
+        <h2 class="category-title">Shoes Collection</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStW3Dk6Qg09ibAFSeaad86jAjCxp9oQjEI3Q&s" alt="Leather Shoes" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Classic Oxford Shoes</h3>
+                    <p class="product-price">$129.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #3e2723;"></div>
+                        <div class="color-option" style="background-color: #212121;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://neemans.com/cdn/shop/files/ND_-_Urban_Casuals_-_Fusion_Black_-_Web_Optimized_e_a3cd7aea-e157-42f0-80e7-5fda2c23675e_800x.jpg?v=1724988632" alt="Sneakers" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Urban Sneakers</h3>
+                    <p class="product-price">$89.99</p>
+                    <div class="product-colors">
+                        <div class="color-option" style="background-color: #ffffff;"></div>
+                        <div class="color-option" style="background-color: #212121;"></div>
+                        <div class="color-option" style="background-color: #1976d2;"></div>
+                    </div>
+                    <a href="#" class="add-to-cart">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+    </section>
+</body>
+</html>
